@@ -178,7 +178,6 @@ transform:translateX(120%);
 display:none;
 }
 
-/* CORREÇÃO */
 .motion-game.hidden{
 display:none !important;
 }
@@ -192,6 +191,25 @@ transform:scale(.94);
 font-size:60px;
 margin-bottom:12px;
 filter:drop-shadow(0 0 16px rgba(255,255,255,.55));
+}
+
+.photo{
+width:100%;
+max-width:260px;
+height:320px;
+object-fit:cover;
+
+border-radius:24px;
+
+margin:0 auto 22px auto;
+
+display:block;
+
+border:2px solid rgba(255,255,255,.12);
+
+box-shadow:
+0 10px 35px rgba(0,0,0,.35),
+0 0 25px rgba(139,92,246,.25);
 }
 
 h1{
@@ -491,6 +509,8 @@ left:390px;
 
 <div class="shake-area">
 
+<img src="foto1.jpg" class="photo">
+
 <div class="heart-top">💖</div>
 
 <h1>Área Secreta</h1>
@@ -514,6 +534,8 @@ Entrar 💜
 <div id="card" class="card hidden">
 
 <div class="heart-top">♡</div>
+
+<img id="mainPhoto" class="photo" src="foto2.jpg">
 
 <h1 id="title">
 Para o amor da minha vida 💜
@@ -570,20 +592,23 @@ const questions = [
 {
 title:"Você é meu lugar favorito 💙",
 text:"Cada conversa com você deixa meus dias melhores.",
-question:"Promete continuar comigo por muito tempo? 💖"
+question:"Promete continuar comigo por muito tempo? 💖",
+image:"foto2.jpg"
 },
 
 {
 title:"Modo Especial 💜",
 text:"Agora mova o celular para responder.",
 question:"Incline o celular ✨",
-motion:true
+motion:true,
+image:"foto3.jpg"
 },
 
 {
 title:"Última pergunta 💚",
 text:"Você transformou minha vida em algo muito mais feliz.",
-question:"Aceita ser meu amor pra sempre? 💍"
+question:"Aceita ser meu amor pra sempre? 💍",
+image:"foto4.jpg"
 }
 ];
 
@@ -603,6 +628,8 @@ const buttons = document.querySelector(".buttons");
 
 const motionGame = document.getElementById("motionGame");
 const motionBall = document.getElementById("motionBall");
+
+const mainPhoto = document.getElementById("mainPhoto");
 
 let step = 0;
 let shakeUnlocked = false;
@@ -704,7 +731,8 @@ title.textContent = current.title;
 text.textContent = current.text;
 question.textContent = current.question;
 
-/* CORREÇÃO */
+mainPhoto.src = current.image;
+
 if(current.motion){
 
 buttons.classList.add("hidden");
@@ -828,6 +856,8 @@ function showFinal(){
 
 card.innerHTML = `
 <div class="letter">
+
+<img src="foto5.jpg" class="photo">
 
 <div style="
 font-size:72px;
