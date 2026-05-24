@@ -1,236 +1,720 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Meu Amor 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+<title>Para Meu Amor 💖</title>
 
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #8b5cf6 0%, #6d28d9 35%, #312e81 100%);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .bg-ball {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(80px);
-      opacity: 0.5;
-      animation: float 10s ease-in-out infinite;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-    .ball1 {
-      width: 300px;
-      height: 300px;
-      background: #c084fc;
-      top: -50px;
-      left: -50px;
-      opacity: 0.7;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    .ball2 {
-      width: 350px;
-      height: 350px;
-      background: #93c5fd;
-      bottom: -100px;
-      right: -100px;
-      animation-duration: 14s;
-    }
+:root{
+  --glass:rgba(255,255,255,.08);
+  --glass-border:rgba(255,255,255,.12);
+  --white-soft:rgba(255,255,255,.85);
+}
 
-    .ball3 {
-      width: 250px;
-      height: 250px;
-      background: #86efac;
-      top: 40%;
-      left: 40%;
-      animation-duration: 18s;
-    }
+body{
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"Inter",sans-serif;
+  position:relative;
+  color:white;
 
-    @keyframes float {
-      0%,100% {
-        transform: translateY(0px) translateX(0px);
-      }
-      50% {
-        transform: translateY(-30px) translateX(30px);
-      }
-    }
+  background:
+  radial-gradient(circle at top left,#8b5cf6 0%,transparent 25%),
+  radial-gradient(circle at bottom right,#38bdf8 0%,transparent 25%),
+  linear-gradient(135deg,#0f172a 0%,#1e1b4b 40%,#312e81 100%);
+}
 
-    @keyframes fall {
-      from {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(120vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
 
-    .glass {
-      backdrop-filter: blur(25px);
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      box-shadow:
-        0 8px 32px rgba(31, 38, 135, 0.37),
-        inset 0 0 20px rgba(255,255,255,0.08);
-    }
+  background:
+  radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
 
-    .heart {
-      position: fixed;
-      top: -20px;
-      animation: fall linear forwards;
-      pointer-events: none;
-      z-index: 9999;
-    }
-  </style>
+  background-size:40px 40px;
+
+  opacity:.3;
+
+  animation:bgMove 16s linear infinite;
+}
+
+@keyframes bgMove{
+  from{
+    transform:translateY(0px);
+  }
+
+  to{
+    transform:translateY(-40px);
+  }
+}
+
+.bg-glow{
+  position:absolute;
+  border-radius:999px;
+  filter:blur(100px);
+  opacity:.5;
+  animation:float 12s ease-in-out infinite;
+}
+
+.glow1{
+  width:320px;
+  height:320px;
+  background:#a855f7;
+  top:-100px;
+  left:-100px;
+}
+
+.glow2{
+  width:360px;
+  height:360px;
+  background:#38bdf8;
+  right:-120px;
+  bottom:-120px;
+  animation-duration:16s;
+}
+
+.glow3{
+  width:260px;
+  height:260px;
+  background:#4ade80;
+  left:45%;
+  top:45%;
+  animation-duration:20s;
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(40px,-40px);
+  }
+}
+
+.glass-card{
+  width:min(92vw,980px);
+
+  padding:clamp(26px,4vw,60px);
+
+  border-radius:42px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.03)
+  );
+
+  border:1px solid var(--glass-border);
+
+  backdrop-filter:blur(35px);
+  -webkit-backdrop-filter:blur(35px);
+
+  box-shadow:
+  0 10px 50px rgba(0,0,0,.35),
+  0 0 120px rgba(168,85,247,.12),
+  inset 0 1px 1px rgba(255,255,255,.08);
+
+  z-index:2;
+
+  transition:
+  transform .35s ease,
+  opacity .35s ease;
+}
+
+.glass-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+
+  animation:shine 8s linear infinite;
+}
+
+@keyframes shine{
+  from{
+    transform:translateX(-120%);
+  }
+
+  to{
+    transform:translateX(120%);
+  }
+}
+
+.heart-top{
+  font-size:68px;
+  margin-bottom:10px;
+
+  filter:drop-shadow(0 0 18px rgba(255,255,255,.6));
+}
+
+h1{
+  font-size:clamp(42px,5vw,78px);
+
+  font-weight:900;
+
+  letter-spacing:-3px;
+
+  line-height:.95;
+
+  margin-bottom:20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #fff,
+    #c4b5fd,
+    #7dd3fc
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+#text{
+  font-size:clamp(16px,2vw,24px);
+
+  line-height:1.8;
+
+  color:rgba(255,255,255,.88);
+
+  margin-bottom:28px;
+
+  max-width:700px;
+
+  margin-inline:auto;
+}
+
+.decorations{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-bottom:20px;
+  opacity:.85;
+}
+
+#question{
+  font-size:clamp(22px,3vw,34px);
+
+  line-height:1.5;
+
+  padding:30px;
+
+  border-radius:30px;
+
+  background:
+  linear-gradient(
+    145deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.03)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+  inset 0 1px 0 rgba(255,255,255,.06),
+  0 15px 35px rgba(0,0,0,.18);
+
+  margin-bottom:42px;
+}
+
+.buttons{
+  position:relative;
+
+  width:min(700px,100%);
+
+  height:180px;
+
+  margin-inline:auto;
+}
+
+button{
+  border:none;
+
+  cursor:pointer;
+
+  position:absolute;
+
+  border-radius:999px;
+
+  padding:
+  18px
+  42px;
+
+  font-size:clamp(18px,2vw,28px);
+
+  font-weight:800;
+
+  color:white;
+
+  overflow:hidden;
+
+  transition:
+  transform .22s ease,
+  box-shadow .22s ease;
+}
+
+button:hover{
+  transform:translateY(-4px);
+}
+
+button::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.25),
+    transparent
+  );
+
+  transform:translateX(-120%);
+
+  transition:transform .7s ease;
+}
+
+button:hover::before{
+  transform:translateX(120%);
+}
+
+#yesBtn{
+  left:40px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #8b5cf6
+  );
+
+  box-shadow:
+  0 0 40px rgba(56,189,248,.35),
+  0 0 90px rgba(139,92,246,.22);
+}
+
+#noBtn{
+  right:40px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  background:
+  linear-gradient(
+    135deg,
+    #f472b6,
+    #a855f7
+  );
+
+  box-shadow:
+  0 0 40px rgba(244,114,182,.28);
+}
+
+.hidden{
+  display:none;
+}
+
+.fade{
+  opacity:0;
+  transform:scale(.94);
+}
+
+.login-screen{
+  max-width:520px;
+
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.login-input{
+  width:100%;
+
+  border:none;
+  outline:none;
+
+  padding:18px 22px;
+
+  border-radius:20px;
+
+  background:rgba(255,255,255,.08);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  color:white;
+
+  font-size:18px;
+
+  backdrop-filter:blur(14px);
+}
+
+.login-input::placeholder{
+  color:rgba(255,255,255,.55);
+}
+
+.heart{
+  position:fixed;
+  top:-50px;
+  pointer-events:none;
+  z-index:9999;
+
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  from{
+    transform:translateY(-100px) rotate(0deg);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+.letter{
+  animation:openLetter .8s ease;
+}
+
+@keyframes openLetter{
+  from{
+    opacity:0;
+    transform:scale(.7) rotateX(80deg);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1) rotateX(0);
+  }
+}
+
+@media(max-width:768px){
+
+  body{
+    padding:18px;
+  }
+
+  .glass-card{
+    width:100%;
+    border-radius:34px;
+    padding:28px 18px;
+  }
+
+  h1{
+    font-size:42px;
+  }
+
+  #question{
+    padding:22px;
+    font-size:24px;
+  }
+
+  .buttons{
+    height:220px;
+  }
+
+  button{
+    padding:16px 28px;
+    font-size:22px;
+  }
+
+  #yesBtn{
+    left:10px;
+  }
+
+  #noBtn{
+    right:10px;
+  }
+}
+</style>
 </head>
+
 <body>
-  <div class="bg-ball ball1"></div>
-  <div class="bg-ball ball2"></div>
-  <div class="bg-ball ball3"></div>
 
-  <div id="card" class="glass rounded-[40px] p-10 max-w-2xl w-[90%] text-center text-white relative z-10 transition-all duration-500">
-    <h1 id="title" class="text-6xl font-bold mb-6 drop-shadow-lg">Para o amor da minha vida 💜</h1>
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+<div class="bg-glow glow3"></div>
 
-    <p id="text" class="text-xl mb-8 leading-relaxed">
-      Desde que você apareceu na minha vida, tudo ficou mais bonito.
-    </p>
+<div id="loginScreen" class="glass-card login-screen">
 
-    <p id="question" class="text-2xl font-semibold mb-10">
-      Você aceita continuar sendo a pessoa mais especial da minha vida? ✨
-    </p>
+<div class="heart-top">💖</div>
 
-    <div class="flex justify-center gap-6 h-24 items-center relative">
-      <button
-        id="yesBtn"
-        class="bg-gradient-to-r from-cyan-300 to-purple-300 hover:scale-110 transition-all px-10 py-4 rounded-full text-2xl font-bold text-white shadow-2xl border border-white/40"
-      >
-        Sim 💖
-      </button>
+<h1>Área Secreta</h1>
 
-      <button
-        id="noBtn"
-        class="bg-gradient-to-r from-pink-300 to-purple-300 px-10 py-4 rounded-full text-2xl font-bold text-white shadow-2xl border border-white/40 absolute right-10 transition-all duration-200"
-      >
-        Não 😭
-      </button>
-    </div>
-  </div>
+<p id="text">
+Entre para descobrir uma surpresa especial ✨
+</p>
 
-  <script>
-    const questions = [
-      {
-        title: 'Para o amor da minha vida 💜',
-        text: 'Desde que você apareceu na minha vida, tudo ficou mais bonito.',
-        question: 'Você gosta de viver momentos comigo? ✨'
-      },
-      {
-        title: 'Você é meu lugar favorito 💙',
-        text: 'Cada conversa e sorriso seu deixa meu dia melhor.',
-        question: 'Promete continuar comigo por muito tempo? 💖'
-      },
-      {
-        title: 'Última pergunta 💚',
-        text: 'Você transformou minha vida em algo muito mais feliz.',
-        question: 'Aceita ser meu amor pra sempre? 💍'
-      }
-    ];
+<input class="login-input" placeholder="Digite seu nome">
 
-    let step = 0;
+<input class="login-input" type="password" placeholder="Digite sua senha">
 
-    const title = document.getElementById('title');
-    const text = document.getElementById('text');
-    const question = document.getElementById('question');
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const card = document.getElementById('card');
+<button id="loginBtn">
+Entrar 💜
+</button>
 
-    noBtn.addEventListener('mouseenter', () => {
-      const currentX = noBtn.offsetLeft;
-      const currentY = noBtn.offsetTop;
+</div>
 
-      const moveX = (Math.random() * 120) - 60;
-      const moveY = (Math.random() * 60) - 30;
+<div id="card" class="glass-card hidden">
 
-      let newX = currentX + moveX;
-      let newY = currentY + moveY;
+<div class="heart-top">♡</div>
 
-      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+<h1 id="title">
+Para o amor da minha vida 💜
+</h1>
 
-      newX = Math.max(20, Math.min(newX, maxX));
-      newY = Math.max(20, Math.min(newY, maxY));
+<p id="text">
+Desde que você apareceu na minha vida, tudo ficou mais bonito.
+</p>
 
-      noBtn.style.left = newX + 'px';
-      noBtn.style.top = newY + 'px';
-    });
+<div class="decorations">
+<span>✧</span>
+<span>♡</span>
+<span>✧</span>
+</div>
 
-    yesBtn.addEventListener('click', () => {
-      step++;
+<div id="question">
+Você gosta de viver momentos comigo? ✨
+</div>
 
-      if(step < questions.length){
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.95)';
+<div class="buttons">
 
-        setTimeout(() => {
-          title.innerText = questions[step].title;
-          text.innerText = questions[step].text;
-          question.innerText = questions[step].question;
+<button id="yesBtn">
+♡ Sim
+</button>
 
-          card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
-        }, 300);
-      } else {
-        showFinal();
-      }
-    });
+<button id="noBtn">
+Não 🏃
+</button>
 
-    function showFinal(){
-      card.innerHTML = `
-        <div class="glass rounded-3xl p-8">
-          <div class="text-5xl mb-6">💌</div>
+</div>
+</div>
 
-          <h1 class="text-4xl font-bold mb-6">
-            Carta de Amor
-          </h1>
+<script>
+const questions = [
+{
+title:"Você é meu lugar favorito 💙",
+text:"Cada conversa com você deixa meus dias melhores.",
+question:"Promete continuar comigo por muito tempo? 💖"
+},
 
-          <p class="text-xl leading-relaxed mb-8">
-            Você é a melhor parte dos meus dias.
-            Obrigado por existir, por me fazer sorrir
-            e por deixar minha vida muito mais feliz.
-            Eu te amo infinitamente 💖
-          </p>
+{
+title:"Última pergunta 💚",
+text:"Você transformou minha vida em algo muito mais feliz.",
+question:"Aceita ser meu amor pra sempre? 💍"
+}
+];
 
-          <div class="text-5xl font-bold text-pink-300 animate-pulse">
-            💖 EU TE AMO 💖
-          </div>
-        </div>
-      `;
+const loginScreen = document.getElementById("loginScreen");
+const card = document.getElementById("card");
 
-      setInterval(() => {
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.innerHTML = '💖';
-        heart.style.left = Math.random() * window.innerWidth + 'px';
-        heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+const loginBtn = document.getElementById("loginBtn");
 
-        document.body.appendChild(heart);
+const title = document.getElementById("title");
+const text = document.querySelectorAll("#text")[1];
+const question = document.getElementById("question");
 
-        setTimeout(() => {
-          heart.remove();
-        }, 6000);
-      }, 200);
-    }
-  </script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+const buttons = document.querySelector(".buttons");
+
+let step = 0;
+let heartInterval = null;
+
+loginBtn.onclick = () => {
+
+loginScreen.classList.add("fade");
+
+setTimeout(() => {
+
+loginScreen.classList.add("hidden");
+
+card.classList.remove("hidden");
+
+},300);
+
+};
+
+yesBtn.onclick = () => {
+
+if(step >= questions.length){
+
+showFinal();
+
+return;
+
+}
+
+const current = questions[step];
+
+card.classList.add("fade");
+
+setTimeout(()=>{
+
+title.textContent = current.title;
+text.textContent = current.text;
+question.textContent = current.question;
+
+card.classList.remove("fade");
+
+},250);
+
+step++;
+
+};
+
+noBtn.onclick = moveNoButton;
+
+function moveNoButton(){
+
+const maxX = buttons.clientWidth - noBtn.offsetWidth;
+const maxY = buttons.clientHeight - noBtn.offsetHeight;
+
+const yesRect = yesBtn.getBoundingClientRect();
+
+let valid = false;
+
+while(!valid){
+
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+
+const future = {
+left:x,
+right:x + noBtn.offsetWidth,
+top:y,
+bottom:y + noBtn.offsetHeight
+};
+
+const collision = !(
+future.right < yesBtn.offsetLeft - 20 ||
+future.left > yesBtn.offsetLeft + yesBtn.offsetWidth + 20 ||
+future.bottom < yesBtn.offsetTop - 20 ||
+future.top > yesBtn.offsetTop + yesBtn.offsetHeight + 20
+);
+
+if(!collision){
+
+noBtn.style.left = `${x}px`;
+noBtn.style.top = `${y}px`;
+noBtn.style.right = "auto";
+noBtn.style.transform = "none";
+
+valid = true;
+
+}
+
+}
+
+}
+
+function showFinal(){
+
+card.innerHTML = `
+<div class="letter">
+
+<div style="font-size:72px;margin-bottom:20px;">
+💌
+</div>
+
+<h1>
+Carta de Amor
+</h1>
+
+<p style="
+font-size:24px;
+line-height:1.8;
+max-width:700px;
+margin:auto;
+margin-bottom:30px;
+">
+Você é a melhor parte dos meus dias.<br><br>
+
+Obrigado por existir e deixar minha vida muito mais feliz 💖
+</p>
+
+<div style="
+font-size:42px;
+font-weight:900;
+">
+💖 EU TE AMO 💖
+</div>
+
+</div>
+`;
+
+startHearts();
+
+}
+
+function startHearts(){
+
+heartInterval = setInterval(()=>{
+
+const heart = document.createElement("div");
+
+heart.className = "heart";
+
+heart.innerHTML = "💖";
+
+heart.style.left = Math.random() * window.innerWidth + "px";
+
+heart.style.fontSize =
+(Math.random() * 18 + 18) + "px";
+
+heart.style.animationDuration =
+(Math.random() * 2 + 3) + "s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+
+heart.remove();
+
+},5000);
+
+},180);
+
+}
+</script>
+
 </body>
 </html>
