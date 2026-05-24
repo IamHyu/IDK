@@ -21,7 +21,6 @@
 :root{
   --glass:rgba(255,255,255,.08);
   --glass-border:rgba(255,255,255,.12);
-  --white-soft:rgba(255,255,255,.85);
 }
 
 body{
@@ -251,29 +250,20 @@ h1{
 
 .buttons{
   position:relative;
-
   width:min(700px,100%);
-
   height:180px;
-
   margin-inline:auto;
 }
 
 button{
   border:none;
-
   cursor:pointer;
-
   position:absolute;
-
   border-radius:999px;
 
-  padding:
-  18px
-  42px;
+  padding:18px 42px;
 
   font-size:clamp(18px,2vw,28px);
-
   font-weight:800;
 
   color:white;
@@ -289,32 +279,9 @@ button:hover{
   transform:translateY(-4px);
 }
 
-button::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-  linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.25),
-    transparent
-  );
-
-  transform:translateX(-120%);
-
-  transition:transform .7s ease;
-}
-
-button:hover::before{
-  transform:translateX(120%);
-}
-
 #yesBtn{
   left:40px;
   top:50%;
-
   transform:translateY(-50%);
 
   background:
@@ -323,16 +290,11 @@ button:hover::before{
     #38bdf8,
     #8b5cf6
   );
-
-  box-shadow:
-  0 0 40px rgba(56,189,248,.35),
-  0 0 90px rgba(139,92,246,.22);
 }
 
 #noBtn{
   right:40px;
   top:50%;
-
   transform:translateY(-50%);
 
   background:
@@ -341,9 +303,6 @@ button:hover::before{
     #f472b6,
     #a855f7
   );
-
-  box-shadow:
-  0 0 40px rgba(244,114,182,.28);
 }
 
 .hidden{
@@ -357,7 +316,6 @@ button:hover::before{
 
 .login-screen{
   max-width:520px;
-
   display:flex;
   flex-direction:column;
   gap:18px;
@@ -365,12 +323,9 @@ button:hover::before{
 
 .login-input{
   width:100%;
-
   border:none;
   outline:none;
-
   padding:18px 22px;
-
   border-radius:20px;
 
   background:rgba(255,255,255,.08);
@@ -378,14 +333,66 @@ button:hover::before{
   border:1px solid rgba(255,255,255,.08);
 
   color:white;
-
   font-size:18px;
-
-  backdrop-filter:blur(14px);
 }
 
 .login-input::placeholder{
   color:rgba(255,255,255,.55);
+}
+
+.gyro-wrapper{
+  width:100%;
+  margin-top:10px;
+}
+
+.gyro-line{
+  width:100%;
+  height:14px;
+
+  border-radius:999px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    90deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.05)
+  );
+
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.gyro-ball{
+  width:38px;
+  height:38px;
+
+  border-radius:999px;
+
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%,-50%);
+
+  background:
+  linear-gradient(
+    135deg,
+    #38bdf8,
+    #a855f7
+  );
+
+  box-shadow:
+  0 0 30px rgba(168,85,247,.45);
+}
+
+.mobile-text{
+  margin-top:16px;
+  font-size:15px;
+  opacity:.7;
 }
 
 .heart{
@@ -428,22 +435,30 @@ button:hover::before{
 @media(max-width:768px){
 
   body{
-    padding:18px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding:14px;
+    align-items:center;
   }
 
   .glass-card{
     width:100%;
-    border-radius:34px;
-    padding:28px 18px;
+    border-radius:30px;
+    padding:24px 14px;
   }
 
   h1{
-    font-size:42px;
+    font-size:36px;
+  }
+
+  #text{
+    font-size:16px;
   }
 
   #question{
-    padding:22px;
-    font-size:24px;
+    font-size:22px;
+    padding:18px;
+    border-radius:24px;
   }
 
   .buttons{
@@ -451,16 +466,21 @@ button:hover::before{
   }
 
   button{
-    padding:16px 28px;
-    font-size:22px;
+    padding:14px 24px;
+    font-size:18px;
   }
 
   #yesBtn{
-    left:10px;
+    left:0;
   }
 
   #noBtn{
-    right:10px;
+    right:0;
+  }
+
+  .gyro-ball{
+    width:34px;
+    height:34px;
   }
 }
 </style>
@@ -536,6 +556,12 @@ question:"Promete continuar comigo por muito tempo? 💖"
 },
 
 {
+title:"Inclina seu celular ✨",
+text:"Mexa o celular para mover a bolinha 💜",
+question:"gyro"
+},
+
+{
 title:"Última pergunta 💚",
 text:"Você transformou minha vida em algo muito mais feliz.",
 question:"Aceita ser meu amor pra sempre? 💍"
@@ -578,7 +604,6 @@ yesBtn.onclick = () => {
 if(step >= questions.length){
 
 showFinal();
-
 return;
 
 }
@@ -590,8 +615,34 @@ card.classList.add("fade");
 setTimeout(()=>{
 
 title.textContent = current.title;
+
 text.textContent = current.text;
-question.textContent = current.question;
+
+if(current.question === "gyro"){
+
+question.innerHTML = `
+<div class="gyro-wrapper">
+
+<div class="gyro-line">
+
+<div class="gyro-ball" id="gyroBall"></div>
+
+</div>
+
+<div class="mobile-text">
+Incline o celular para mover a bolinha ✨
+</div>
+
+</div>
+`;
+
+startGyro();
+
+}else{
+
+question.innerHTML = current.question;
+
+}
 
 card.classList.remove("fade");
 
@@ -608,8 +659,6 @@ function moveNoButton(){
 const maxX = buttons.clientWidth - noBtn.offsetWidth;
 const maxY = buttons.clientHeight - noBtn.offsetHeight;
 
-const yesRect = yesBtn.getBoundingClientRect();
-
 let valid = false;
 
 while(!valid){
@@ -617,18 +666,11 @@ while(!valid){
 const x = Math.random() * maxX;
 const y = Math.random() * maxY;
 
-const future = {
-left:x,
-right:x + noBtn.offsetWidth,
-top:y,
-bottom:y + noBtn.offsetHeight
-};
-
 const collision = !(
-future.right < yesBtn.offsetLeft - 20 ||
-future.left > yesBtn.offsetLeft + yesBtn.offsetWidth + 20 ||
-future.bottom < yesBtn.offsetTop - 20 ||
-future.top > yesBtn.offsetTop + yesBtn.offsetHeight + 20
+x + noBtn.offsetWidth < yesBtn.offsetLeft - 20 ||
+x > yesBtn.offsetLeft + yesBtn.offsetWidth + 20 ||
+y + noBtn.offsetHeight < yesBtn.offsetTop - 20 ||
+y > yesBtn.offsetTop + yesBtn.offsetHeight + 20
 );
 
 if(!collision){
@@ -641,6 +683,52 @@ noBtn.style.transform = "none";
 valid = true;
 
 }
+
+}
+
+}
+
+function startGyro(){
+
+const ball = document.getElementById("gyroBall");
+
+if(!ball) return;
+
+function moveBall(gamma){
+
+const lineWidth =
+ball.parentElement.offsetWidth;
+
+const max =
+lineWidth - 38;
+
+let normalized =
+((gamma + 45) / 90);
+
+normalized =
+Math.max(0,Math.min(1,normalized));
+
+const position =
+normalized * max;
+
+ball.style.left =
+position + "px";
+
+}
+
+if(typeof DeviceOrientationEvent !== "undefined"){
+
+window.addEventListener(
+"deviceorientation",
+(event)=>{
+
+const gamma =
+event.gamma || 0;
+
+moveBall(gamma);
+
+}
+);
 
 }
 
