@@ -42,6 +42,9 @@ let step = 0;
 let shakeUnlocked = false;
 let orientationHandler = null;
 
+// ESCONDE O MOTION GAME AO INICIAR
+motionGame.classList.add("hidden");
+
 function resetButtons(){
 
 if(window.innerWidth <= 768){
@@ -139,16 +142,19 @@ title.textContent = current.title;
 text.textContent = current.text;
 question.textContent = current.question;
 
+// ESCONDE TUDO PRIMEIRO
+motionGame.classList.add("hidden");
+buttons.classList.add("hidden");
+
+// MOSTRA APENAS O NECESSÁRIO
 if(current.motion === true){
 
-buttons.classList.add("hidden");
 motionGame.classList.remove("hidden");
 
 startMotionGame();
 
 }else{
 
-motionGame.classList.add("hidden");
 buttons.classList.remove("hidden");
 
 resetButtons();
@@ -159,6 +165,7 @@ card.classList.remove("fade");
 
 },250);
 
+// AUMENTA O STEP DEPOIS
 step++;
 
 }
@@ -170,8 +177,6 @@ buttons.clientWidth - noBtn.offsetWidth;
 
 const maxY =
 buttons.clientHeight - noBtn.offsetHeight;
-
-const yesRect = yesBtn.getBoundingClientRect();
 
 const safeDistance = 170;
 
