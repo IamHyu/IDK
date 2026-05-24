@@ -178,6 +178,11 @@ transform:translateX(120%);
 display:none;
 }
 
+/* CORREÇÃO */
+.motion-game.hidden{
+display:none !important;
+}
+
 .fade{
 opacity:0;
 transform:scale(.94);
@@ -699,16 +704,21 @@ title.textContent = current.title;
 text.textContent = current.text;
 question.textContent = current.question;
 
+/* CORREÇÃO */
 if(current.motion){
 
 buttons.classList.add("hidden");
+
 motionGame.classList.remove("hidden");
+motionGame.style.display = "flex";
 
 startMotionGame();
 
 }else{
 
 motionGame.classList.add("hidden");
+motionGame.style.display = "none";
+
 buttons.classList.remove("hidden");
 
 resetButtons();
